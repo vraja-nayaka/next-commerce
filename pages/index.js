@@ -1,12 +1,14 @@
-import Head from 'next/head'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core';
+import { MainLayout } from '../components/MainLayout';
 
 export default function Home() {
   return (
-    <Box>
-      <Typography>
-        Hello e-commerce Next
+    <MainLayout>
+      <Box>
+        <Typography>
+          Hello e-commerce Next
       </Typography>
-    </Box>
+      </Box>
+    </MainLayout>
   )
 }
