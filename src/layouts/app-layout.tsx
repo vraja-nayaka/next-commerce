@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { Grid, Box, CssBaseline } from '@material-ui/core';
-import { Navbar } from './Navbar';
+import { Box, CssBaseline } from '@material-ui/core';
+import { Navbar } from '../components/Navbar';
 
-export const MainLayout = ({ children, title = "Suite" }) => (
+const AppLayout = ({ children, title = "Suite" }) => (
     <>
         <Head>
             <title>{title} | Next Commerce</title>
@@ -23,3 +23,5 @@ export const MainLayout = ({ children, title = "Suite" }) => (
         </footer>
     </>
 );
+
+export default AppLayout;
