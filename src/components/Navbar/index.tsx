@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import MenuListComposition from './Menu';
 
 export const Navbar = () => (
@@ -15,7 +15,7 @@ export const Navbar = () => (
             <MenuListComposition />
             <Link href={'/'}><a>Home</a></Link>
             <Link href={'/about'}><a>About</a></Link>
-            <Link href={'/products'}><a>Products</a></Link>
+            <Link href={'/book'}><a>Books</a></Link>
         </Box>
     </>
 );
