@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { themeGet } from '@styled-system/theme-get';
 
 const MainContentArea = styled.main`
   width: 100%;
@@ -41,7 +42,17 @@ const ContentSection = styled.div`
   }
 `;
 
+const SidebarSection = styled.div`
+  background-color: ${themeGet('colors.white', '#ffffff')};
+  width: 280px;
+
+  @media (max-width: 990px) {
+    display: none;
+  }
+`;
+
 export {
   MainContentArea,
   ContentSection,
+  SidebarSection
 };

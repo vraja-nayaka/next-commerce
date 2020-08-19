@@ -1,17 +1,23 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { Banner } from '../components/banner/banner';
 import {
   MainContentArea,
   ContentSection,
+  SidebarSection,
 } from '../assets/styles/pages.style';
 
 import { sitePages } from '../site-settings/site-pages';
 import { useRefScroll } from '../utils/use-ref-scroll';
-import { initializeApollo } from '../utils/apollo';
-import { GET_PRODUCTS } from '../graphql/query/products.query';
-import { GET_CATEGORIES } from '../graphql/query/category.query';
+// import { initializeApollo } from '../utils/apollo';
+// import { GET_PRODUCTS } from '../graphql/query/products.query';
+// import { GET_CATEGORIES } from '../graphql/query/category.query';
+const Sidebar = dynamic(() => import('../layouts/sidebar/sidebar'));
+const Products = dynamic(() =>
+  import('../components/product-grid/product-list/product-list')
+);
 
 const CategoryPage: React.FC<any> = ({ deviceType }) => {
   const { query } = useRouter();
@@ -33,10 +39,19 @@ const CategoryPage: React.FC<any> = ({ deviceType }) => {
         imageUrl={page?.banner_image_url}
       />
       <MainContentArea>
-        <ContentSection>
-          Книги тут!
+          <SidebarSection>
+            <Sidebar type={PAGE_TYPE} deviceType={deviceType} />
+          </SidebarSection>
+          <ContentSection>
+            <div ref={targetRef}>
+              <Products
+                type={PAGE_TYPE}
+                deviceType={deviceType}
+                fetchLimit={20}
+              />
+            </div>
           </ContentSection>
-      </MainContentArea>
+        </MainContentArea>
     </>
   );
 };
