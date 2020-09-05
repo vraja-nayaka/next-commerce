@@ -1,11 +1,17 @@
-import { Box, Typography } from '@material-ui/core';
+import { useEffect } from 'react';
+import Head from 'next/head';
+import Router from 'next/router';
 
-export default function Home() {
+// the redirect will only happen on the client-side. This is by design,
+const IndexPage: React.FC<{}> = () => {
+  useEffect(() => {
+    Router.replace('/[type]', '/book');
+  });
   return (
-    <Box>
-      <Typography>
-        Hello e-commerce Next
-      </Typography>
-    </Box>
-  )
-}
+    <Head>
+      <meta name="robots" content="noindex, nofollow" />
+    </Head>
+  );
+};
+
+export default IndexPage;

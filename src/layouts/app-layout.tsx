@@ -1,27 +1,45 @@
-import Head from 'next/head';
-import { Box, CssBaseline } from '@material-ui/core';
-import { Navbar } from '../components/Navbar';
+import React from 'react';
+import dynamic from 'next/dynamic';
+import Sticky from 'react-stickynode';
+import { useAppState } from 'contexts/app/app.provider';
+import Header from './header/header';
+import { LayoutWrapper } from './layout.style';
+const MobileHeader = dynamic(() => import('./header/mobile-header'), {
+  ssr: false,
+});
 
-const AppLayout = ({ children, title = "Suite" }) => (
-    <>
-        <Head>
-            <title>{title} | Next Commerce</title>
-            <meta name="keywords" content="next,nextjs,e-commerce" />
-            <meta name="discription" content="New e-commerce project for your business" />
-            <meta charSet="utf-8" />
-        </Head>
-        <CssBaseline />
-        <nav>
-            <Navbar />
-        </nav>
-        <main>
-            <Box minHeight="85vh" bgcolor="#CCC" display="flex" alignItems="center" justifyContent="center">
-                {children}
-            </Box>
-        </main>
-        <footer>
-        </footer>
-    </>
-);
+type LayoutProps = {
+  className?: string;
+  token?: string;
+};
 
-export default AppLayout;
+const Layout: React.FunctionComponent<LayoutProps> = ({
+  className,
+  children,
+  // deviceType: { mobile, tablet, desktop },
+  token,
+}) => {
+  const isSticky = useAppState('isSticky');
+
+  const isHomePage = true;
+  return (
+    <LayoutWrapper className={`layoutWrapper ${className}`}>
+      <Sticky enabled={isSticky} innerZ={1001}>
+        <MobileHeader
+          className={`${isSticky ? 'sticky' : 'unSticky'} ${
+            isHomePage ? 'home' : ''
+          } desktop`}
+        />
+
+        <Header
+          className={`${isSticky && isHomePage ? 'sticky' : 'unSticky'} ${
+            isHomePage ? 'home' : ''
+          }`}
+        />
+      </Sticky>
+      {children}
+    </LayoutWrapper>
+  );
+};
+
+export default Layout;
